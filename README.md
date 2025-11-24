@@ -1,1 +1,1 @@
-# <img alt="C-lang" src="https://icons8.com.br/icon/shQTXiDQiQVR/c-programming">
+# <img alt="C-lang" src="https://drive.google.com/file/d/1cA0-FTlh2_NCNkeH3ty0DXiT6_Cy02Pi/view?usp=sharing">
