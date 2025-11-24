@@ -1,1 +1,1 @@
-# <img alt="C-lang" src="https://drive.google.com/file/d/1cA0-FTlh2_NCNkeH3ty0DXiT6_Cy02Pi/view?usp=sharing">
+# <img alt="C-lang" src="https://img.icons8.com/?size=96&id=40670&format=png">
