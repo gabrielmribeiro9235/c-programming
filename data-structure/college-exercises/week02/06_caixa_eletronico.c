@@ -57,6 +57,15 @@ int main() {
                     valor = 0;
                     continue;
                 }
+                if(ultimo_valor > 5) {
+                    qnt5--;
+                    if(valor == 1) 
+                        qnt2 = qnt2 + 3;
+                    else
+                        qnt2 = qnt2 + 4;
+                    valor = 0;
+                    continue;
+                }
             }
             if(valor >= 100) {
                 ultimo_valor = valor;
