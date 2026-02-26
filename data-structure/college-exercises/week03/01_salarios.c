@@ -6,9 +6,6 @@ int main() {
     for(int i = 0; i < 10; i++) {
         printf("Salário %d: R$ ", i+1);
         scanf("%f", &salary_vector[i]);
-    }
-    
-    for(int i = 0; i < 10; i++) {
         soma += salary_vector[i];
     }
     
