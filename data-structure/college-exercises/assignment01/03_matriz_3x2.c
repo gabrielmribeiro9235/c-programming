@@ -71,6 +71,15 @@ void multiplicar_pelo_maior_elemento(int mat[3][2], int num) {
     }
 }
 
+/* Se a ideia da função for apenas multiplicar e não mostrar, seria assim:
+void multiplicar_pelo_maior_elemento(int mat[3][2], int num) {
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 2; j++) {
+            mat[i][j] *= num;
+        }
+    }
+} */
+
 void exibir_matriz_transposta(int mat[3][2]) {
     printf("--------------------------------------------------\n");
     printf("Matriz transposta:\n\n");
