@@ -7,7 +7,7 @@ void multiplicar_pelo_maior_elemento(int mat[3][2], int num);
 void exibir_matriz_transposta(int mat[3][2]);
 
 int main() {
-    int matriz[3][2], matriz_multiplicada_pelo_maior[3][2], maior;
+    int matriz[3][2], maior;
 
     ler_matriz(matriz);
 
