@@ -19,7 +19,7 @@ int main() {
         primos[i] = i;
     }
 
-    for(int i = 2; i < raiz; i++){
+    for(int i = 2; i <= raiz; i++){
         for(int j = 0; j < n+1; j++) {
             if(j % i == 0 && j != i) {
                 primos[j] = 0;
