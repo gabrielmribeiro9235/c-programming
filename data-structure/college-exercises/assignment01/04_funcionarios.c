@@ -45,7 +45,7 @@ int main() {
 
     funcionario_com_maior_salario = buscar_maior_salario(lista_de_funcionarios, TAM);
     printf("-----------------------------------------------------------\n");
-    printf("Dados de do funcionário com maior salário\n\n");
+    printf("Dados do funcionário com maior salário\n\n");
     printf("Matrícula funcional: %s\n", funcionario_com_maior_salario.matricula);
     printf("Nome: %s\n", funcionario_com_maior_salario.nome);
     printf("Salário: R$ %.2f\n", funcionario_com_maior_salario.salario);
