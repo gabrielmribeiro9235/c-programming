@@ -1,0 +1,4 @@
+Isso será escrito no arquivo de destino
+Linha 2
+Linha 3
+Linha 4
