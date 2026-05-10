@@ -1,0 +1,2 @@
+1;Teclado Mecânico;250.00
+2;Mouse Gamer;100.00
