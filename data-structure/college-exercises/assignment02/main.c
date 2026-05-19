@@ -16,6 +16,7 @@ typedef struct {
 void inicializarTurma(Turma *turma);
 void carregarDados(Turma *turma);
 void cadastrarAluno(Turma *turma, Aluno *aluno);
+void listarAlunos(Turma *turma);
 
 void inicializarTurma(Turma *turma) {
     turma->dados = NULL;
@@ -55,4 +56,14 @@ void cadastrarAluno(Turma *turma, Aluno *aluno) {
     turma->dados = temp;
     turma->dados[turma->quantidade-1] = *aluno;
     turma->quantidade++;
+}
+
+void listarAlunos(Turma *turma) {
+    for(int i = 0; i < turma->quantidade; i++) {
+        printf("--------------------------------\n");
+        printf("Aluno %d\n", i+1);
+        printf("Prontuário: %s\n", turma->dados[i].prontuario);
+        printf("Nome      : %s\n", turma->dados[i].nome);
+        printf("IRA       : %.2f\n", turma->dados[i].ira);
+    }
 }
