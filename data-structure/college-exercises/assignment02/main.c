@@ -12,3 +12,12 @@ typedef struct {
     Aluno *dados;
     int quantidade;
 } Turma;
+
+void inicializarTurma(Turma *turma);
+
+void inicializarTurma(Turma *turma) {
+    turma->dados = NULL;
+    turma->quantidade = 0;
+
+    printf("Turma criada e pronta para receber alunos!\n");
+}
