@@ -15,6 +15,7 @@ typedef struct {
 
 void inicializarTurma(Turma *turma);
 void carregarDados(Turma *turma);
+void cadastrarAluno(Turma *turma, Aluno *aluno);
 
 void inicializarTurma(Turma *turma) {
     turma->dados = NULL;
@@ -41,4 +42,17 @@ void carregarDados(Turma *turma) {
     }
 
     fclose(arq);
+}
+
+void cadastrarAluno(Turma *turma, Aluno *aluno) {
+    Aluno *temp = (Aluno *)realloc(turma->dados, (turma->quantidade + 1) * sizeof(Aluno));
+
+    if(temp == NULL) {
+        printf("Falha ao cadastrar o novo aluno!\n");
+        return;
+    }
+
+    turma->dados = temp;
+    turma->dados[turma->quantidade-1] = *aluno;
+    turma->quantidade++;
 }
