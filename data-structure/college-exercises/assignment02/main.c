@@ -25,6 +25,7 @@ void ordenarPorIRA(Turma *turma);
 Aluno* buscarAluno(Turma *turma, char prontuario[]);
 int removerAluno(Turma *turma, char prontuario[], Aluno *aluno);
 void salvar(Turma *turma);
+void liberarMemoria(Turma *turma);
 
 void inicializarTurma(Turma *turma) {
     turma->dados = NULL;
@@ -178,4 +179,10 @@ void salvar(Turma *turma) {
     fwrite(turma->dados, sizeof(Aluno), turma->quantidade, arq);
     
     fclose(arq);
+}
+
+void liberarMemoria(Turma *turma) {
+    free(turma->dados);
+    turma->dados = NULL;
+    turma->quantidade = 0;
 }
