@@ -17,6 +17,7 @@ void inicializarTurma(Turma *turma);
 void carregarDados(Turma *turma);
 void cadastrarAluno(Turma *turma, Aluno *aluno);
 void listarAlunos(Turma *turma);
+void ordenarPorProntuario(Turma *turma);
 
 void inicializarTurma(Turma *turma) {
     turma->dados = NULL;
@@ -65,5 +66,24 @@ void listarAlunos(Turma *turma) {
         printf("Prontuário: %s\n", turma->dados[i].prontuario);
         printf("Nome      : %s\n", turma->dados[i].nome);
         printf("IRA       : %.2f\n", turma->dados[i].ira);
+    }
+}
+
+void ordenarPorProntuario(Turma *turma) {
+    for(int i = 0; i < turma->quantidade - 1; i++) {
+        int swapped = 0;
+
+        for(int j = 0; j < turma->quantidade - 1 - i; j++) {
+            if(strcmp(turma->dados[j].prontuario, turma->dados[j+1].prontuario) > 0) {
+                Aluno temp = turma->dados[j];
+                turma->dados[j] = turma->dados[j+1];
+                turma->dados[j+1] = temp;
+
+                swapped = 1;
+            }
+        }
+        
+        if(swapped == 0)
+            break;
     }
 }
