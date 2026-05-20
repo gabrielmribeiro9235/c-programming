@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ERRO 0
+#define OK 1
+
 typedef struct {
     char prontuario[10];
     char nome[100];
@@ -20,6 +23,7 @@ void listarAlunos(Turma *turma);
 void ordenarPorProntuario(Turma *turma);
 void ordenarPorIRA(Turma *turma);
 Aluno* buscarAluno(Turma *turma, char prontuario[]);
+int removerAluno(Turma *turma, char prontuario[], Aluno *aluno);
 
 void inicializarTurma(Turma *turma) {
     turma->dados = NULL;
@@ -131,4 +135,32 @@ Aluno* buscarAluno(Turma *turma, char prontuario[]) {
         inicio = meio + 1;
     } 
     return NULL;
+}
+
+int removerAluno(Turma *turma, char prontuario[], Aluno *aluno) {
+    int idx_procurado = -1;
+
+    for(int i = 0; i < turma->quantidade; i++) {
+        if(strcmp(turma->dados[i].prontuario, prontuario) == 0) {
+            idx_procurado = i;
+            break;
+        }
+    }
+    
+    if(idx_procurado == -1)
+        return ERRO;
+
+    *aluno = turma->dados[idx_procurado];
+    
+    for(int i = idx_procurado; i < turma->quantidade - 1; i++)
+        turma->dados[i] = turma->dados[i+1];
+    
+    turma->quantidade--;
+    
+    Aluno *temp = (Aluno *)realloc(turma->dados, sizeof(Aluno) * turma->quantidade);
+    
+    if(temp != NULL || turma->quantidade == 0)
+        turma->dados = temp;
+    
+    return OK;
 }
