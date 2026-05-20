@@ -24,6 +24,7 @@ void ordenarPorProntuario(Turma *turma);
 void ordenarPorIRA(Turma *turma);
 Aluno* buscarAluno(Turma *turma, char prontuario[]);
 int removerAluno(Turma *turma, char prontuario[], Aluno *aluno);
+void salvar(Turma *turma);
 
 void inicializarTurma(Turma *turma) {
     turma->dados = NULL;
@@ -163,4 +164,18 @@ int removerAluno(Turma *turma, char prontuario[], Aluno *aluno) {
         turma->dados = temp;
     
     return OK;
+}
+
+void salvar(Turma *turma) {
+    FILE *arq = fopen("dados.bin", "wb");
+
+    if(arq == NULL) {
+        printf("Erro ao abrir o arquivo!\n");
+        return;
+    }
+    
+    fwrite(&turma->quantidade, sizeof(int), 1, arq);
+    fwrite(turma->dados, sizeof(Aluno), turma->quantidade, arq);
+    
+    fclose(arq);
 }
