@@ -19,6 +19,7 @@ void cadastrarAluno(Turma *turma, Aluno *aluno);
 void listarAlunos(Turma *turma);
 void ordenarPorProntuario(Turma *turma);
 void ordenarPorIRA(Turma *turma);
+Aluno* buscarAluno(Turma *turma, char prontuario[]);
 
 void inicializarTurma(Turma *turma) {
     turma->dados = NULL;
@@ -106,4 +107,28 @@ void ordenarPorIRA(Turma *turma) {
         if(swapped == 0)
             break;
     }
+}
+
+Aluno* buscarAluno(Turma *turma, char prontuario[]) {
+    // Como foi implementado um bubble sort, caso o array já esteja ordenado,
+    // a lógica do swapped fará com que só haja uma iteração, evitando perda de tempo ordenando um array já ordenado
+    ordenarPorProntuario(turma);
+
+    int inicio = 0, fim = turma->quantidade - 1;
+
+    while(inicio <= fim) {
+        int meio = (inicio + fim) / 2;
+
+        if(strcmp(turma->dados[meio].prontuario, prontuario) == 0) {
+            return &turma->dados[meio];
+        }
+        
+        if(strcmp(turma->dados[meio].prontuario, prontuario) > 0) {
+            fim = meio - 1;
+            continue;
+        }
+        
+        inicio = meio + 1;
+    } 
+    return NULL;
 }
