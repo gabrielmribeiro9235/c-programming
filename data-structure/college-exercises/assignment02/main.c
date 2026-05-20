@@ -54,7 +54,7 @@ void cadastrarAluno(Turma *turma, Aluno *aluno) {
     }
 
     turma->dados = temp;
-    turma->dados[turma->quantidade-1] = *aluno;
+    turma->dados[turma->quantidade] = *aluno;
     turma->quantidade++;
 }
 
