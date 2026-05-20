@@ -18,6 +18,7 @@ void carregarDados(Turma *turma);
 void cadastrarAluno(Turma *turma, Aluno *aluno);
 void listarAlunos(Turma *turma);
 void ordenarPorProntuario(Turma *turma);
+void ordenarPorIRA(Turma *turma);
 
 void inicializarTurma(Turma *turma) {
     turma->dados = NULL;
@@ -75,6 +76,25 @@ void ordenarPorProntuario(Turma *turma) {
 
         for(int j = 0; j < turma->quantidade - 1 - i; j++) {
             if(strcmp(turma->dados[j].prontuario, turma->dados[j+1].prontuario) > 0) {
+                Aluno temp = turma->dados[j];
+                turma->dados[j] = turma->dados[j+1];
+                turma->dados[j+1] = temp;
+
+                swapped = 1;
+            }
+        }
+        
+        if(swapped == 0)
+            break;
+    }
+}
+
+void ordenarPorIRA(Turma *turma) {
+    for(int i = 0; i < turma->quantidade - 1; i++) {
+        int swapped = 0;
+
+        for(int j = 0; j < turma->quantidade - 1 - i; j++) {
+            if(turma->dados[j].ira > turma->dados[j+1].ira) {
                 Aluno temp = turma->dados[j];
                 turma->dados[j] = turma->dados[j+1];
                 turma->dados[j+1] = temp;
