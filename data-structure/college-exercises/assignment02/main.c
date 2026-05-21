@@ -27,10 +27,145 @@ int removerAluno(Turma *turma, char prontuario[], Aluno *aluno);
 void salvar(Turma *turma);
 void liberarMemoria(Turma *turma);
 
+int main() {
+    Turma turma;
+    
+    inicializarTurma(&turma);
+    carregarDados(&turma);
+    
+    int escolha;
+    do {
+        printf("------------------------------------------------\n");
+        printf("1. Cadastrar aluno\n");
+        printf("2. Listar alunos\n");
+        printf("3. Buscar aluno\n");
+        printf("4. Ordenar por IRA\n");
+        printf("5. Ordenar por prontuário\n");
+        printf("6. Remover aluno\n");
+        printf("7. Salvar\n");
+        printf("8. Sair\n");
+        printf("------------------------------------------------\n");
+        printf("Sua escolha: ");
+        scanf("%d", &escolha);
+        
+        while(getchar() != '\n');
+        
+        switch (escolha) {
+            case 1: {
+                Aluno novo_aluno;
+
+                printf("------------------------------------------------\n");
+                printf("Cadastrar novo aluno:\n");
+
+                printf("Prontuário: ");
+                fgets(novo_aluno.prontuario, sizeof(novo_aluno.prontuario), stdin);
+                novo_aluno.prontuario[strcspn(novo_aluno.prontuario, "\n")] = '\0';
+
+                printf("Nome: ");
+                fgets(novo_aluno.nome, sizeof(novo_aluno.nome), stdin);
+                novo_aluno.nome[strcspn(novo_aluno.nome, "\n")] = '\0';
+
+                printf("IRA: ");
+                scanf("%f", &novo_aluno.ira);
+
+                while(getchar() != '\n');
+
+                printf("------------------------------------------------\n");
+                cadastrarAluno(&turma, &novo_aluno);
+
+                break;
+            } case 2:
+                listarAlunos(&turma);
+                break;
+            case 3: {
+                char prontuario[10];
+
+                printf("------------------------------------------------\n");
+                printf("Insira o prontuário do aluno que quer buscar:\n");
+                fgets(prontuario, sizeof(prontuario), stdin);
+                prontuario[strcspn(prontuario, "\n")] = '\0';
+
+                Aluno *aluno_buscado = buscarAluno(&turma, prontuario);
+
+                printf("------------------------------------------------\n");
+                
+                if(aluno_buscado == NULL) {
+                    printf("Aluno não encontrado!\n");
+                    break;
+                }
+                
+                printf("Aluno encontrado:\n");
+                printf("Prontuário: %s\n", aluno_buscado->prontuario);
+                printf("Nome      : %s\n", aluno_buscado->nome);
+                printf("IRA       : %.2f\n", aluno_buscado->ira);
+                
+                break;
+            } case 4:
+                ordenarPorIRA(&turma);
+
+                printf("------------------------------------------------\n");
+                printf("Turma ordenada por IRA!\n");
+
+                break;
+            case 5:
+                ordenarPorProntuario(&turma);
+
+                printf("------------------------------------------------\n");
+                printf("Turma ordenada por prontuário!\n");
+
+                break;
+            case 6: {
+                char prontuario[10];
+
+                printf("------------------------------------------------\n");
+                printf("Insira o prontuário do aluno que quer remover:\n");
+                fgets(prontuario, sizeof(prontuario), stdin);
+                prontuario[strcspn(prontuario, "\n")] = '\0';
+                
+                Aluno aluno_removido;
+                
+                int remocao = removerAluno(&turma, prontuario, &aluno_removido);
+                
+                printf("------------------------------------------------\n");
+
+                if(remocao == ERRO) {
+                    printf("Aluno não encontrado!\n");
+                    break;
+                }
+
+                printf("Aluno removido:\n");
+                printf("Prontuário: %s\n", aluno_removido.prontuario);
+                printf("Nome      : %s\n", aluno_removido.nome);
+                printf("IRA       : %.2f\n", aluno_removido.ira);
+                
+                break;
+            } case 7:
+                printf("------------------------------------------------\n");
+                salvar(&turma);
+
+                break;
+            case 8:
+                break;
+            default:
+                printf("Escolha inválida\n");
+                break;
+        }
+    } while (escolha != 8);
+    
+    printf("------------------------------------------------\n");
+    salvar(&turma);
+    liberarMemoria(&turma);
+    
+    printf("\nFim do programa\n");
+    
+    return 0;
+}
+
 void inicializarTurma(Turma *turma) {
     turma->dados = NULL;
     turma->quantidade = 0;
-
+    
+    printf("------------------------------------------------\n");
     printf("Turma criada e pronta para receber alunos!\n");
 }
 
@@ -61,15 +196,17 @@ void cadastrarAluno(Turma *turma, Aluno *aluno) {
         printf("Falha ao cadastrar o novo aluno!\n");
         return;
     }
-
+    
     turma->dados = temp;
     turma->dados[turma->quantidade] = *aluno;
     turma->quantidade++;
+
+    printf("Novo aluno cadastrado.\n");
 }
 
 void listarAlunos(Turma *turma) {
     for(int i = 0; i < turma->quantidade; i++) {
-        printf("--------------------------------\n");
+        printf("------------------------------------------------\n");
         printf("Aluno %d\n", i+1);
         printf("Prontuário: %s\n", turma->dados[i].prontuario);
         printf("Nome      : %s\n", turma->dados[i].nome);
@@ -179,6 +316,7 @@ void salvar(Turma *turma) {
     fwrite(turma->dados, sizeof(Aluno), turma->quantidade, arq);
     
     fclose(arq);
+    printf("Turma salva com sucesso!\n");
 }
 
 void liberarMemoria(Turma *turma) {
