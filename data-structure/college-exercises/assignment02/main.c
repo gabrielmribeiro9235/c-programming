@@ -16,6 +16,7 @@ typedef struct {
     int quantidade;
 } Turma;
 
+int menu();
 void inicializarTurma(Turma *turma);
 void carregarDados(Turma *turma);
 void cadastrarAluno(Turma *turma, Aluno *aluno);
@@ -34,21 +35,9 @@ int main() {
     carregarDados(&turma);
     
     int escolha;
+    
     do {
-        printf("------------------------------------------------\n");
-        printf("1. Cadastrar aluno\n");
-        printf("2. Listar alunos\n");
-        printf("3. Buscar aluno\n");
-        printf("4. Ordenar por IRA\n");
-        printf("5. Ordenar por prontuário\n");
-        printf("6. Remover aluno\n");
-        printf("7. Salvar\n");
-        printf("8. Sair\n");
-        printf("------------------------------------------------\n");
-        printf("Sua escolha: ");
-        scanf("%d", &escolha);
-        
-        while(getchar() != '\n');
+        escolha = menu();
         
         switch (escolha) {
             case 1: {
@@ -159,6 +148,27 @@ int main() {
     printf("\nFim do programa\n");
     
     return 0;
+}
+
+int menu() {
+    int escolha;
+
+    printf("------------------------------------------------\n");
+    printf("1. Cadastrar aluno\n");
+    printf("2. Listar alunos\n");
+    printf("3. Buscar aluno\n");
+    printf("4. Ordenar por IRA\n");
+    printf("5. Ordenar por prontuário\n");
+    printf("6. Remover aluno\n");
+    printf("7. Salvar\n");
+    printf("8. Sair\n");
+    printf("------------------------------------------------\n");
+    printf("Sua escolha: ");
+    scanf("%d", &escolha);
+    
+    while(getchar() != '\n');
+
+    return escolha;
 }
 
 void inicializarTurma(Turma *turma) {
