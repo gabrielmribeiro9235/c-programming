@@ -20,6 +20,7 @@ int menu();
 void inicializarTurma(Turma *turma);
 void carregarDados(Turma *turma);
 void cadastrarAluno(Turma *turma, Aluno *aluno);
+int validar(Turma *turma, char prontuario[]);
 void listarAlunos(Turma *turma);
 void ordenarPorProntuario(Turma *turma);
 void ordenarPorIRA(Turma *turma);
@@ -49,6 +50,13 @@ int main() {
                 printf("Prontuário: ");
                 fgets(novo_aluno.prontuario, sizeof(novo_aluno.prontuario), stdin);
                 novo_aluno.prontuario[strcspn(novo_aluno.prontuario, "\n")] = '\0';
+
+                int existe = validar(&turma, novo_aluno.prontuario);
+                if(existe) {
+                    printf("------------------------------------------------\n");
+                    printf("Aluno já cadastrado!\n");
+                    break;
+                }
 
                 printf("Nome: ");
                 fgets(novo_aluno.nome, sizeof(novo_aluno.nome), stdin);
@@ -212,6 +220,14 @@ void cadastrarAluno(Turma *turma, Aluno *aluno) {
     turma->quantidade++;
 
     printf("Novo aluno cadastrado.\n");
+}
+
+int validar(Turma *turma, char prontuario[]) {
+    for(int i = 0; i < turma->quantidade; i++) {
+        if(strcmp(prontuario, turma->dados[i].prontuario) == 0)
+            return 1;
+    }
+    return 0;
 }
 
 void listarAlunos(Turma *turma) {
