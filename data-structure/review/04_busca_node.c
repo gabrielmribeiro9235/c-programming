@@ -6,7 +6,7 @@ typedef struct No {
     struct No *proximo;
 } No;
 
-No *busca(No **cabeca, int valor);
+No *busca(No *cabeca, int valor);
 
 int main() {
     No node4 = {
@@ -26,7 +26,7 @@ int main() {
     lista->valor = 10;
     lista->proximo = &node2;
     
-    No *node_buscado = busca(&lista, 40);
+    No *node_buscado = busca(lista, 30);
     if(node_buscado == NULL) {
         printf("NULL\n");
     } else if(node_buscado->proximo == NULL) {
@@ -41,13 +41,10 @@ int main() {
     return 0;
 }
 
-No *busca(No **cabeca, int valor) {
-    if(cabeca == NULL) return NULL;
-    while ((*cabeca)->valor != valor && (*cabeca)->proximo != NULL) {
-        *cabeca = (*cabeca)->proximo;
+No *busca(No *cabeca, int valor) {
+    while (cabeca != NULL) {
+        if(cabeca->valor == valor) return cabeca;
+        cabeca = cabeca->proximo;
     }
-    if((*cabeca)->valor == valor) {
-        return *cabeca;
-    } 
     return NULL;
 }
