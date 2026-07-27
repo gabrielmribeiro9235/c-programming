@@ -8,6 +8,7 @@ typedef struct No {
 
 void insere_fim(No **cabeca, int valor);
 void teste_de_impressao(No **cabeca);
+void libera_memoria(No **cabeca);
 
 int main() {
     No *lista = NULL;
@@ -19,40 +20,34 @@ int main() {
     
     teste_de_impressao(&lista);
     
-    free(lista);
-    lista = NULL;
+    libera_memoria(&lista);
     
     return 0;
 }
 
 void insere_fim(No **cabeca, int valor) {
-    if(*cabeca == NULL) {
-        *cabeca = malloc(sizeof(No));
-        if(*cabeca == NULL) return;
-        (*cabeca)->valor = valor;
-        (*cabeca)->proximo = NULL;
-    } else {
-        No *ultimo = malloc(sizeof(No));
-        if(ultimo == NULL) return;
-        No *cauda = malloc(sizeof(No));
-        cauda = *cabeca;
-        while (cauda->proximo != NULL) {
-            cauda = cauda->proximo;
-        }
-        ultimo->valor = valor;
-        ultimo->proximo = NULL;
-        cauda->proximo = ultimo;
+    while (*cabeca != NULL) {
+        cabeca = &(*cabeca)->proximo;
     }
+    *cabeca = malloc(sizeof(No));
+    if(*cabeca == NULL) return;
+    (*cabeca)->valor = valor;
+    (*cabeca)->proximo = NULL;
 }
 
 void teste_de_impressao(No **cabeca) {
     if(*cabeca == NULL) return;
-
-    if((*cabeca)->proximo == NULL) {
-        printf("%d\t", (*cabeca)->valor);
-        return;
-    }
-
+    
     printf("%d\t", (*cabeca)->valor);
     teste_de_impressao(&(*cabeca)->proximo);
+}
+
+void libera_memoria(No **cabeca) {
+    No *atual = *cabeca;
+    while(atual != NULL) {
+        No *proximo = atual->proximo;
+        free(atual);
+        atual = proximo;
+    }
+    *cabeca = NULL;
 }
