@@ -29,7 +29,7 @@ int main() {
     
     imprime_lista(lista);
     
-    remove_valor(&lista, 50);
+    remove_valor(&lista, 30);
     
     imprime_lista(lista);
 
@@ -39,31 +39,25 @@ int main() {
 }
 
 void remove_valor(No **cabeca, int valor) {
-    No *node_anterior = malloc(sizeof(No));
-    No *node_posterior = malloc(sizeof(No));
-    No *cauda = malloc (sizeof(No));
-    int isHead = 1;
-    
-    if(node_anterior == NULL || node_posterior == NULL || cauda == NULL) return;
+    if(cabeca == NULL) return;
 
-    cauda = *cabeca;
+    No *node_remover = *cabeca;
+    No *anterior = NULL;
 
-    while (cauda->valor != valor && cauda->proximo != NULL) {
-        isHead = 0;
-        node_anterior = cauda;
-        cauda = cauda->proximo;
+    while(node_remover != NULL) {
+        if(node_remover->valor == valor) break;
+        anterior = node_remover;
+        node_remover = node_remover->proximo;
     }
     
-    if(cauda->valor != valor) return;
-    
-    node_posterior = cauda->proximo;
-    
-    if(!isHead) {
-        cauda = node_anterior;
-        cauda->proximo = node_posterior;
+    if(node_remover == NULL) return;
+
+    if(anterior == NULL) {
+        *cabeca = node_remover->proximo;
     } else {
-        *cabeca = (*cabeca)->proximo;
+        anterior->proximo = node_remover->proximo;
     }
+    node_remover = NULL;
 }
 
 void imprime_lista(No *cabeca) {
